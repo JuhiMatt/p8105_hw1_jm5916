@@ -26,4 +26,10 @@ This plot has a general upward trend, indicating that temperature rises as time 
 
 ## Problem 2 
 ``` {r prob_two}
+prob_two_df = tibble(
+  vec_num = rnorm(10),
+  vec_logical = vec_num > 0,
+  vec_char = c("This", "has", "ten", "characters", "well", "now", "it", "has", "that", "blah"),
+  vec_factor = factor(c("high", "low", "med", "low","med", "med", "high","med","low","low"))
+)
 ```
