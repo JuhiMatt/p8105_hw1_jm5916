@@ -1,0 +1,25 @@
+---
+title: "p8105_hw1_jm5916"
+author: "Juhi Mattekatt"
+date: "2025-09-18"
+output: github_document
+---
+## Problem 1
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library (moderndive) #load the package
+jan_weather <- data("early_january_weather") #read package in 
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
