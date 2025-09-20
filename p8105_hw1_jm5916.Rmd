@@ -6,15 +6,23 @@ output: github_document
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse) #load package for plots and other functions
 ```
 
 ## Problem 1
-```{r prob_one}
+```{r prob_one_setup}
 library(moderndive) #load the package
-data("early_january_weather") #load dataset in 
+data("early_january_weather") #load dataset in, already named so I won't add my own object name
 View(early_january_weather) #look at data
 ```
 This dataset describes weather conditions in early January at EWR. The column names are `r colnames(early_january_weather)`. There are `r ncol(early_january_weather)` columns and `r nrow(early_january_weather)` rows. The mean temperature is `r round(mean(early_january_weather$temp), digits = 2)` F.
+
+``` {r prob_one_plot}
+#make a scatter plot 
+ggplot(early_january_weather, aes(x = time_hour, y = temp, colour = humid)) + geom_point()
+ggsave("hour_v_temp_w_humidity.pdf", height = 4, width = 6)
+```
+This plot has a general upward trend, indicating that temperature rises as time (in days) increases. Additionly, within each day, the temperature varies widely going from a high to a low to a high again the next day. Humidity was pretty low (< 60) until Jan 7, after which humidity generally increased. This was a non-linear increase as some days had high humidity while others had low humidity.
 
 ## Problem 2 
 ``` {r prob_two}
