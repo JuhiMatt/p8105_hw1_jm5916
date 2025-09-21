@@ -6,14 +6,14 @@ output: github_document
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse) #load package for plots and other functions
+library(tidyverse) #load package for plots and mean in questions
 ```
 
 ## Problem 1
 ```{r prob_one_setup}
 library(moderndive) #load the package
 data("early_january_weather") #load dataset in, already named so I won't add my own object name
-View(early_january_weather) #look at data
+early_january_weather #view data for myself
 ```
 This dataset describes weather conditions in early January at EWR. The column names are `r colnames(early_january_weather)`. There are `r ncol(early_january_weather)` columns and `r nrow(early_january_weather)` rows. The mean temperature is `r round(mean(early_january_weather$temp), digits = 2)` F.
 
@@ -26,10 +26,39 @@ This plot has a general upward trend, indicating that temperature rises as time 
 
 ## Problem 2 
 ``` {r prob_two}
-prob_two_df = tibble(
-  vec_num = rnorm(10),
-  vec_logical = vec_num > 0,
+prob_two_df = tibble( #make a table
+  vec_num = rnorm(10), #column with random numbers from std normal distribution 
+  vec_logical = vec_num > 0, #column conditioned of if numbers in vec_num are > 0
   vec_char = c("This", "has", "ten", "characters", "well", "now", "it", "has", "that", "blah"),
+    #column of 10 characters
   vec_factor = factor(c("high", "low", "med", "low","med", "med", "high","med","low","low"))
+    #factor column with 3 levels 
 )
+print(prob_two_df) #show table
 ```
+I've made a data frame matching the specifications given
+
+``` {r prob_two_mean}
+pull_vec_num = pull(prob_two_df, var = vec_num) #pull variable out of dataframe
+mean_vec_num = mean(pull_vec_num) #find mean of vec_num
+
+pull_vec_logical = pull(prob_two_df, var = vec_logical) #pull variable out of dataframe
+mean_vec_logical = mean(pull_vec_logical) #find mean of vec_logical
+
+pull_vec_char = pull(prob_two_df, var = vec_char) #pull variable out of dataframe
+mean_vec_char = mean(pull_vec_char) #find mean of vec_char
+
+pull_vec_factor = pull(prob_two_df, var = vec_factor) #pull variable out of dataframe
+mean_vec_factor = mean(pull_vec_factor) #find mean of vec_factor
+
+print(mean_vec_num) #this returns a number, this variable is made up of numbers
+print(mean_vec_logical) #this returns a number as true = 1 and false = 0
+print(mean_vec_char) #no number, this variable is made up of characters
+print(mean_vec_factor) #no number, vec_factor's data has no associated numeric values
+```
+```{r prob_two_as_numeric}
+num_vec_logical = as.numeric(pull_vec_logical) #turning vec_logical numeric works
+num_vec_char = as.numeric(pull_vec_char) #turning vec_char numeric doesn't work
+num_vec_factor= as.numeric(pull_vec_factor) #turning vec_factor variable numeric works
+```
+Both vec_logical and vec_factor are categorical (more specifically ordered) variables that can have their data be assigned numerical values, this finding a mean in this case is possible becasue every datapoint has an underlying numerical value. vec_char is a series of characters with data that can't be easily converted into a number value, it's more of an unordered variable and assigning the data a value wouldn't make sense.
